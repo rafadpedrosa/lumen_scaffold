@@ -2,7 +2,7 @@
     "name": "rafadpedrosa/lumen_scaffold",
     "autoload": {
         "psr-4" : {
-            "rafadpedrosa\\lumen_scaffold" : "src"
+            "rafadpedrosa\\lumen_scaffold\\" : "src"
         }
     }
 }
