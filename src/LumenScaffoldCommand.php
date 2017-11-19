@@ -57,6 +57,6 @@ class LumenScaffoldCommand extends Command
      */
     public function fire()
     {
-        echo('FUI CHAMADO!');
+        echo('FUI CHAMADO 2!');
     }
 }
