@@ -32,6 +32,8 @@ OBS: to create a resource method for create all paths more fast, you have to cha
 
 And now ou are ready to go! 
 
-> php artisan lumen_scaffold:start your_model_here {--m|migration=1} 
+> php artisan lumen_scaffold:start your_model_here {--m|migration=1}
+
 > php artisan lumen_scaffold:start car // no migration is created
+
 > php artisan lumen_scaffold:start car -m // migration is created
