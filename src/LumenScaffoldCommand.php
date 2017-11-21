@@ -26,7 +26,7 @@ class LumenScaffoldCommand extends Command
      * @var string
      */
     protected $signature = 'lumen_scaffold:start {model : model name}
-                            {--options : options}';
+                            {--m|migration=1}';
 
     /**
      * The console command description.
@@ -49,7 +49,7 @@ class LumenScaffoldCommand extends Command
         $this->model = '';
         $this->templates_dir = __DIR__ . '/templates/';
         $this->tmp_dir = $this->templates_dir . 'tmp';
-        $this->controller_file = $this->tmp_dir . '/' . $this->model . 'Controler.php';
+        $this->controller_file = $this->tmp_dir . '/' . $this->model . 'Controller.php';
         $this->app_dir = __DIR__ . '/../../../../app';
     }
 
@@ -63,11 +63,11 @@ class LumenScaffoldCommand extends Command
         $this->fire();
     }
 
-    private function getContentsAlreadyModifiedFromTemplateFile()
+    private function getContentsAlreadyReplacedFromTemplateFile($file_name)
     {
         // Logic to read and replace file {template} names
         // I prefer do this way to improve my php skills
-        $file = fopen($this->templates_dir . 'TemplateController.php', 'r+');
+        $file = fopen($this->templates_dir . $file_name, 'r+');
 
         $contents = '';
         $old = '';
@@ -77,10 +77,10 @@ class LumenScaffoldCommand extends Command
         while (!feof($file)) {
             $new = fread($file, $fileLength);
 
-            if (str_contains($old . $new, '{template}')) {
-
+            if (str_contains($old . $new, 'template}')) {
                 $contents = substr($contents, 0, strlen($contents) - strlen($old));
                 $increment = str_replace('{template}', $this->model, $old . $new);
+                $increment = str_replace('{ltemplate}', strtolower($this->model), $increment);
             } else {
                 $increment = $new;
             }
@@ -92,6 +92,19 @@ class LumenScaffoldCommand extends Command
         //FINISH READ
         fclose($file);
         return $contents;
+    }
+
+    public function writeAndConvertedContentOfModelOrControlerFile($file_name, $isController = true)
+    {
+        $contents = $this->getContentsAlreadyReplacedFromTemplateFile($file_name);
+        $file = fopen($this->controller_file, 'w+');
+        fwrite($file, $contents);
+        fclose($file);
+        if ($isController) {
+            rename($this->controller_file, $this->app_dir . '/Http/Controllers/' . $this->model . 'Controller.php');
+        } else {
+            rename($this->controller_file, $this->app_dir . '/Http/Models/' . $this->model . '.php');
+        }
     }
 
     /**
@@ -108,15 +121,18 @@ class LumenScaffoldCommand extends Command
                 mkdir($this->tmp_dir);
 
             //WRITE
-            $contents = $this->getContentsAlreadyModifiedFromTemplateFile();
-            $file = fopen($this->controller_file, 'w+');
-            fwrite($file, $contents);
-            fclose($file);
-            rename($this->controller_file, $this->app_dir . '/Http/Controllers/' . $this->model . 'Controler.php');
+            $this->writeAndConvertedContentOfModelOrControlerFile('TemplateController.php');
+            $this->writeAndConvertedContentOfModelOrControlerFile('model.php', false);
+
+            file_put_contents($this->app_dir . '/../routes/web.php',
+                '$router->resource(\'' . strtolower($this->model) . '\',\'' . $this->model . 'Controller\');',
+                FILE_APPEND);
+            var_dump(!$this->option('migration'));
+            if (!$this->option('migration'))
+                shell_exec('php artisan make:migration create_' . strtolower($this->model) . 's_table --create=' . $this->model . 's');
         } finally {
             rmdir($this->tmp_dir);
         }
-//        echo $this->argument('model');
         echo "|--------------------------------------------------------------| \n";
         echo "|  Scaffold complete! See the new controler and we.php file!   | \n";
         echo "|--------------------------------------------------------------| \n";

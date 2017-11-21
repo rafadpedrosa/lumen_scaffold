@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\{template};
+use Illuminate\Http\Request;
+
 class {template}Controller extends Controller
 {
     /**
@@ -11,40 +14,53 @@ class {template}Controller extends Controller
      */
     public function __construct()
     {
-        // {template}
     }
 
     public function listAll()
     {
-        // {template}
         return response()
-            ->json([0, 1, 2, 3, 4, 5]);
+            ->json({template}::all());
     }
 
-    public function store($data)
+    public function store(Request $request)
     {
-        // {template}
-        var_dump('{template}');
-        var_dump($data);
+        ${ltemplate} = new {template}();
+        ${ltemplate}->name = $request->input('name');
+        ${ltemplate}->email = $request->input('email');
+
+        ${ltemplate}->save();
+
+        return response()
+            ->json(["STORE " => $request->all(), "{template}" => ${ltemplate}]);
     }
 
     public function show($id)
     {
-        // {template}
         return response()
-            ->json(["SHOW " => $id]);
+            ->json(["SHOW " => {template}::findOrFail($id)]);
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        // {template}
+        ${ltemplate} = {template}::findOrFail($id);
+        ${ltemplate}->name = $request->input('name');
+        ${ltemplate}->email = $request->input('email');
+
+        ${ltemplate}->save();
+
         return response()
-            ->json(["UPDATE " => $id]);
+            ->json(["UPDATE " => $id, "ltemplateUpdated" => ${ltemplate}]);
+    }
+
+    public function edit($id)
+    {
+        return response()
+            ->json(["EDIT " => {template}::findOrFail($id)]);
     }
 
     public function destroy($id)
     {
-        // {template}
+        {template}::findOrFail($id)->delete();
         return response()
             ->json(["DESTROY " => $id]);
     }
