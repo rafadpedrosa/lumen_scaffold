@@ -24,9 +24,12 @@ class {template}Controller extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
         ${ltemplate} = new {template}();
-        ${ltemplate}->name = $request->input('name');
-        ${ltemplate}->email = $request->input('email');
+        ${ltemplate}->name = $request->json()->get('name');
 
         ${ltemplate}->save();
 
@@ -43,8 +46,8 @@ class {template}Controller extends Controller
     public function update(Request $request, $id)
     {
         ${ltemplate} = {template}::findOrFail($id);
-        ${ltemplate}->name = $request->input('name');
-        ${ltemplate}->email = $request->input('email');
+        ${ltemplate}->name = $request->json()->get('name');
+        ${ltemplate}->email = $request->json()->get('email');
 
         ${ltemplate}->save();
 
