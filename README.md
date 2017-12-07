@@ -36,4 +36,12 @@ And now ou are ready to go!
 
 > php artisan lumen_scaffold:start car // no migration is created
 
-> php artisan lumen_scaffold:start car -m // migration is created
+> php artisan lumen_scaffold:start car -m // migration is created 
+
+
+  **Using validations!**
+
+If you want to validate something, use **$this->validate()** like in the lumen site. But it's a problem if you try to do it using jsons. So, to mitigate this, the is an middliware JsonApiMiddleware that can be used to make the json request be validated. Just add it in your app.php 
+
+
+PS: This solution was retrived by some laracast (y)
