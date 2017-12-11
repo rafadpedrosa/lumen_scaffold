@@ -1,6 +1,6 @@
 <?php
 
-namespace rafadpedrosa\lumen_scaffold\config;
+namespace rafadpedrosa\lumen_scaffold;
 
 class Router extends \Laravel\Lumen\Routing\Router
 {

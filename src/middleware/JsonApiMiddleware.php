@@ -1,6 +1,6 @@
 <?php
 
-namespace rafadpedrosa\lumen_scaffold\Middleware;
+namespace rafadpedrosa\lumen_scaffold;
 
 use Closure;
 
