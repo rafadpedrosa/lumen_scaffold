@@ -1,6 +1,6 @@
 <?php
 
-namespace rafadpedrosa\lumen_scaffold;
+namespace rafadpedrosa\lumen_scaffold\config;
 
 class Application extends \Laravel\Lumen\Application
 {
