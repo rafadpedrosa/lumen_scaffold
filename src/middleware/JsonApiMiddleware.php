@@ -21,8 +21,8 @@ class JsonApiMiddleware
     public function handle($request, Closure $next)
     {
         if (in_array($request->getMethod(), self::PARSED_METHODS)) {
-            $request->merge(json_decode($request->getContent(),true));
-//            $request->merge((array)json_decode($request->getContent()));
+            // $request->merge(json_decode($request->getContent(),true));
+            $request->merge((array)json_decode($request->getContent()));
         }
 
         return $next($request);
