@@ -127,7 +127,6 @@ class LumenScaffoldCommand extends Command
             file_put_contents($this->app_dir . '/../routes/web.php',
                 '$router->resource(\'' . strtolower($this->model) . '\',\'' . $this->model . 'Controller\');',
                 FILE_APPEND);
-            var_dump(!$this->option('migration'));
             if (!$this->option('migration'))
                 shell_exec('php artisan make:migration create_' . strtolower($this->model) . 's_table --create=' . $this->model . 's');
         } finally {
