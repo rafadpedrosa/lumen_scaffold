@@ -85,9 +85,7 @@ class {ltemplate}Controller extends Controller
                 'email' => 'required|email|unique:{template}s'
             ]);
             ${template} = new {ltemplate}();
-            ${template}->login = $request->json()->get('login');
-            ${template}->email = $request->json()->get('email');
-            ${template}->password = encrypt('123');
+            ${template}->name = $request->json()->get('name');
 
             ${template}->saveOrFail();
 
@@ -146,10 +144,9 @@ class {ltemplate}Controller extends Controller
                     ->where('deleted_at', 'NULL')
             ]);
 
-            ${template} = {ltemplate}::findOrFail($id);
-            ${template}->login = $request->json()->get('login');
-            ${template}->email = $request->json()->get('email');
-
+            ${template} = new {ltemplate}();
+            ${template}->name = $request->json()->get('name');
+            
             ${template}->saveOrFail();
 
             return response()
