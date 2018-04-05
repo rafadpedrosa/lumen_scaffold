@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\{ltemplate};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 use Mockery\Exception;
 
