@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Mockery\Exception;
 
-class {ltemplate}Controller extends Controller
+class {template}Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -54,7 +54,7 @@ class {ltemplate}Controller extends Controller
             $sort = explode('|', $request->get('sort'));
         }
 
-        $query = {ltemplate}::query();
+        $query = {template}::query();
 
         $query = mountOrWhereRecursive($query, 'name', $filter);
 
@@ -76,20 +76,21 @@ class {ltemplate}Controller extends Controller
      * )
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws $e
      */
     public function store(Request $request)
     {
         try {
             $this->validate($request, [
-                'name' => 'required|unique:{template}s'
+                'name' => 'required|unique:{ltemplate}s'
             ]);
-            ${template} = new {ltemplate}();
-            ${template}->name = $request->json()->get('name');
+            ${ltemplate} = new {template}();
+            ${ltemplate}->name = $request->json()->get('name');
 
-            ${template}->saveOrFail();
+            ${ltemplate}->saveOrFail();
 
             return response()
-                ->json(["STORE " => $request->all(), "{ltemplate}Created" => ${template}]);
+                ->json(["STORE " => $request->all(), "{ltemplate} Created" => ${ltemplate}]);
         } catch (Exception $e) {
             return response()
                 ->json(["Unexpected error", $e->getMessage()]);
@@ -113,7 +114,7 @@ class {ltemplate}Controller extends Controller
     public function show($id)
     {
         return response()
-            ->json(["SHOW " => {ltemplate}::findOrFail($id)]);
+            ->json(["SHOW " => {template}::findOrFail($id)]);
     }
 
     /**
@@ -131,24 +132,25 @@ class {ltemplate}Controller extends Controller
      * @param Request $request
      * @param Request $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws $e
      */
     public function update(Request $request, $id)
     {
         try {            
             $this->validate($request, [
-                'name' => 'required|unique:{template}s',
+                'name' => 'required|unique:{ltemplate}s',
                 Rule::unique('{template}s', 'name')
                     ->ignore($id)
                     ->where('deleted_at', 'NULL')
             ]);
 
-            ${template} = new {ltemplate}();
-            ${template}->name = $request->json()->get('name');
+            ${ltemplate} = new {template}();
+            ${ltemplate}->name = $request->json()->get('name');
             
-            ${template}->saveOrFail();
+            ${ltemplate}->saveOrFail();
 
             return response()
-                ->json(["UPDATE " => $id, "{template}Updated" => ${template}]);
+                ->json(["UPDATE " => $id, "{ltemplate} Updated" => ${ltemplate}]);
         } catch (Exception $e) {
             return response()
                 ->json(["Unexpected error", $e->getMessage()]);
@@ -172,7 +174,7 @@ class {ltemplate}Controller extends Controller
     public function edit($id)
     {
         return response()
-            ->json({ltemplate}::findOrFail($id));
+            ->json({template}::findOrFail($id));
     }
     /**
      * @SWG\Delete(
@@ -191,7 +193,7 @@ class {ltemplate}Controller extends Controller
      */
     public function destroy($id)
     {
-        {ltemplate}::findOrFail($id)->delete();
+        {template}::findOrFail($id)->delete();
         return response()
             ->json(["DESTROY " => $id]);
     }
