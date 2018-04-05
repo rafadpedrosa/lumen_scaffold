@@ -58,14 +58,11 @@ class {ltemplate}Controller extends Controller
 
         $query = {ltemplate}::query();
 
-        $query = mountOrWhereRecursive($query, 'email', $filter);
-        $query->where('id', '<>', Auth::{template}()->id);
-        $query = mountOrWhereRecursive($query, 'login', $filter);
-        $query->where('id', '<>', Auth::{template}()->id);
+        $query = mountOrWhereRecursive($query, 'name', $filter);
 
         return response()
             ->json($query->orderBy($sort[0], $sort[1])
-                ->paginate(1, $columns, $pageName, $page));
+                ->paginate($per_page, $columns, $pageName, $page));
     }
 
     /**
