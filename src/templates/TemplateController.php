@@ -81,8 +81,7 @@ class {ltemplate}Controller extends Controller
     {
         try {
             $this->validate($request, [
-                'login' => 'required',
-                'email' => 'required|email|unique:{template}s'
+                'name' => 'required|unique:{template}s'
             ]);
             ${template} = new {ltemplate}();
             ${template}->name = $request->json()->get('name');
@@ -135,11 +134,10 @@ class {ltemplate}Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
+        try {            
             $this->validate($request, [
-                'login' => 'required',
-                'email' => 'required|email',
-                Rule::unique('{template}s', 'email')
+                'name' => 'required|unique:{template}s',
+                Rule::unique('{template}s', 'name')
                     ->ignore($id)
                     ->where('deleted_at', 'NULL')
             ]);
