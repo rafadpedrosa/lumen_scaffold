@@ -24,7 +24,7 @@ class {ltemplate}Controller extends Controller
     /**
      * @SWG\Get(
      *     tags={"generic"},
-     *     path="/api/{template}s",
+     *     path="/api/{ltemplate}s",
      *     summary="Busca todos os {ltemplate}s paginados", produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
      *     @SWG\Parameter(ref="#/parameters/pFilter"),
@@ -71,7 +71,7 @@ class {ltemplate}Controller extends Controller
     /**
      * @SWG\Post(
      *     tags={"generic"},
-     *     path="/api/{template}",
+     *     path="/api/{ltemplate}",
      *     summary="Salva {ltemplate}",
      *     produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
@@ -107,7 +107,7 @@ class {ltemplate}Controller extends Controller
     /**
      * @SWG\Get(
      *     tags={"generic"},
-     *     path="/api/{template}/{id}",
+     *     path="/api/{ltemplate}/{id}",
      *     summary="Busca {ltemplate}",
      *     produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
@@ -127,7 +127,7 @@ class {ltemplate}Controller extends Controller
     /**
      * @SWG\Put(
      *     tags={"generic"},
-     *     path="/api/{template}/{id}",
+     *     path="/api/{ltemplate}/{id}",
      *     summary="Altera {ltemplate}",
      *     produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
@@ -168,7 +168,7 @@ class {ltemplate}Controller extends Controller
     /**
      * @SWG\Get(
      *     tags={"generic"},
-     *     path="/api/{template}/{id}/edit",
+     *     path="/api/{ltemplate}/{id}/edit",
      *     summary="Busca {ltemplate} para ser editado",
      *     produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
@@ -187,7 +187,7 @@ class {ltemplate}Controller extends Controller
     /**
      * @SWG\Delete(
      *     tags={"generic"},
-     *     path="/api/{template}/{id}",
+     *     path="/api/{ltemplate}/{id}",
      *     summary="Deleta {ltemplate}",
      *     produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
