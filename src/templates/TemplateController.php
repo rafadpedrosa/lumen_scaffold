@@ -81,7 +81,7 @@ class {ltemplate}Controller extends Controller
     {
         try {
             $this->validate($request, [
-                'name' => 'required|unique:{template}s'
+                'name' => 'required|unique:{ltemplate}s'
             ]);
             ${template} = new {ltemplate}();
             ${template}->name = $request->json()->get('name');
@@ -136,7 +136,7 @@ class {ltemplate}Controller extends Controller
     {
         try {            
             $this->validate($request, [
-                'name' => 'required|unique:{template}s',
+                'name' => 'required|unique:{ltemplate}s',
                 Rule::unique('{template}s', 'name')
                     ->ignore($id)
                     ->where('deleted_at', 'NULL')
