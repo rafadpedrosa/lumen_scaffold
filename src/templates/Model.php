@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @SWG\Definition(
  *     type="object",
- *     example={"anotherProperty":"modify here","{ltemplate}":"1"},
+ *     example={"name":"{template} name","description":"{template} 1"},
  *     @SWG\Property(type="integer", property="{ltemplate}_id"),
- *     @SWG\Property(type="string", property="anotherProperty"),
+ *     @SWG\Property(type="string", property="description"),
  * )
  */
-class {ltemplate} extends Model
+class {template} extends Model
 {
 
     use SoftDeletes;
