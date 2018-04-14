@@ -21,7 +21,7 @@ class {template}Controller extends Controller
 
     /**
      * @SWG\Get(
-     *     tags={"generic"},
+     *     tags={"{ltemplate}s"},
      *     path="/api/{ltemplate}s",
      *     summary="Busca todos os {ltemplate}s paginados", produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
@@ -65,14 +65,19 @@ class {template}Controller extends Controller
 
     /**
      * @SWG\Post(
-     *     tags={"generic"},
+     *     tags={"{ltemplate}s"},
      *     path="/api/{ltemplate}",
      *     summary="Salva {ltemplate}",
      *     produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
+     *     @SWG\parameter(
+     *      name="body",
+     *      in="body",
+     *      required=true,
+     *      @SWG\Schema(ref="#/definitions/{template}")
+     *     ),
      *     @SWG\Response(response="200", description="{ltemplate} salvo com sucesso"),
      *     @SWG\Response(response="500", description="Internal server Error"),
-     *     @SWG\Parameter(ref="#/parameters/generic_def")
      * )
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -99,7 +104,7 @@ class {template}Controller extends Controller
 
     /**
      * @SWG\Get(
-     *     tags={"generic"},
+     *     tags={"{ltemplate}s"},
      *     path="/api/{ltemplate}/{id}",
      *     summary="Busca {ltemplate}",
      *     produces={"application/json"},
@@ -119,13 +124,18 @@ class {template}Controller extends Controller
 
     /**
      * @SWG\Put(
-     *     tags={"generic"},
+     *     tags={"{ltemplate}s"},
      *     path="/api/{ltemplate}/{id}",
      *     summary="Altera {ltemplate}",
      *     produces={"application/json"},
      *     @SWG\parameter(ref="#/parameters/pAuthorization"),
      *     @SWG\Parameter(ref="#/parameters/pId"),
-     *     @SWG\Parameter(ref="#/parameters/generic_def"),
+     *     @SWG\parameter(
+     *      name="body",
+     *      in="body",
+     *      required=true,
+     *      @SWG\Schema(ref="#/definitions/{template}")
+     *     ),
      *     @SWG\Response(response="200", description="{ltemplate} alterado com sucesso"),
      *     @SWG\Response(response="500", description="Internal server Error")
      * )
@@ -159,7 +169,7 @@ class {template}Controller extends Controller
 
     /**
      * @SWG\Get(
-     *     tags={"generic"},
+     *     tags={"{ltemplate}s"},
      *     path="/api/{ltemplate}/{id}/edit",
      *     summary="Busca {ltemplate} para ser editado",
      *     produces={"application/json"},
@@ -176,9 +186,10 @@ class {template}Controller extends Controller
         return response()
             ->json({template}::findOrFail($id));
     }
+
     /**
      * @SWG\Delete(
-     *     tags={"generic"},
+     *     tags={"{ltemplate}s"},
      *     path="/api/{ltemplate}/{id}",
      *     summary="Deleta {ltemplate}",
      *     produces={"application/json"},
