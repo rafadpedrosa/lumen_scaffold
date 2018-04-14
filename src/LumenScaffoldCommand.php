@@ -94,16 +94,33 @@ class LumenScaffoldCommand extends Command
         return $contents;
     }
 
-    public function writeAndConvertedContentOfModelOrControlerFile($file_name, $isController = true)
+    public function writeAndConvertedContentOfModelOrControlerFile($file_name, $case)
     {
         $contents = $this->getContentsAlreadyReplacedFromTemplateFile($file_name);
         $file = fopen($this->controller_file, 'w+');
         fwrite($file, $contents);
         fclose($file);
-        if ($isController) {
-            rename($this->controller_file, $this->app_dir . '/Http/Controllers/' . $this->model . 'Controller.php');
-        } else {
-            rename($this->controller_file, $this->app_dir . '/Http/Models/' . $this->model . '.php');
+        switch ($case) {
+            case 1:
+                //controller
+                rename($this->controller_file, $this->app_dir . '/Http/Controllers/' . $this->model . 'Controller.php');
+                break;
+            case 1:
+                //Model
+                rename($this->controller_file, $this->app_dir . '/Http/Models/' . $this->model . '.php');
+                break;
+            case 3:
+                //test
+                rename($this->controller_file, $this->app_dir . '/../tests/' . $this->model . 'ApiTest.php');
+                break;
+            case 4:
+                //seed
+                rename($this->controller_file, $this->app_dir . '/../database/seeds/' . $this->model . 'TableSeed.php');
+                break;
+            case 5:
+                //factory
+                rename($this->controller_file, $this->app_dir . '/../database/factories/' . $this->model . 'Factory.php');
+                break;
         }
     }
 
@@ -121,26 +138,34 @@ class LumenScaffoldCommand extends Command
                 mkdir($this->tmp_dir);
 
             //WRITE
-            $this->writeAndConvertedContentOfModelOrControlerFile('TemplateController.php');
-            $this->writeAndConvertedContentOfModelOrControlerFile('model.php', false);
+            $this->writeAndConvertedContentOfModelOrControlerFile('TemplateController.php' ,1);
+            $this->writeAndConvertedContentOfModelOrControlerFile('model.php', 2);
+            $this->writeAndConvertedContentOfModelOrControlerFile('TemplateApiTest.php', 3);
+            $this->writeAndConvertedContentOfModelOrControlerFile('Seed.php', 4);
+            $this->writeAndConvertedContentOfModelOrControlerFile('Factory.php', 5);
 
+            // web.php
             file_put_contents($this->app_dir . '/../routes/web.php',
                 '$router->resource(\'' . strtolower($this->model) . '\',\'' . $this->model . 'Controller\');',
                 FILE_APPEND);
+
+            // wagger tags
             file_put_contents($this->app_dir . '/Http/swagger/swaggerTags.php',
                 "\n* @SWG\Tag("
-                 ."\n *   name=\"".strtolower($this->model) ."s\","
-                 ."\n *   description=\"". strtolower($this->model) . "s\"  API description\","
-                 ."\n *   @SWG\ExternalDocumentation("
-                 ."\n *     description=\","
-                 ."\n *     url=\"\""
-                 ."\n *   )"
-                 ."\n * )"
-                 ."\n **/ ",
+                . "\n *   name=\"" . strtolower($this->model) . "s\","
+                . "\n *   description=\"" . strtolower($this->model) . "s\"  API description\","
+                . "\n *   @SWG\ExternalDocumentation("
+                . "\n *     description=\","
+                . "\n *     url=\"\""
+                . "\n *   )"
+                . "\n * )"
+                . "\n **/ ",
                 FILE_APPEND);
+
+            // migrations
             if (!$this->option('migration'))
                 shell_exec('composer dump-autoload');
-                shell_exec('php artisan make:migration create_' . strtolower($this->model) . 's_table --create=' . strtolower($this->model) . 's');
+            shell_exec('php artisan make:migration create_' . strtolower($this->model) . 's_table --create=' . strtolower($this->model) . 's');
         } finally {
             rmdir($this->tmp_dir);
         }

@@ -37,6 +37,9 @@ class {template}Controller extends Controller
      *     description="Erro inesperado"),
      *     )
      * )
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws $e
      */
     public function listAll(Request $request)
     {
@@ -198,7 +201,6 @@ class {template}Controller extends Controller
      *     @SWG\Response(response="200", description="{ltemplate} alterado com sucesso"),
      *     @SWG\Response(response="500", description="Internal server Error")
      * )
-     * @param Request $request
      * @param Request $id
      * @return \Illuminate\Http\JsonResponse
      */
