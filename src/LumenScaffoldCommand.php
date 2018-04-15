@@ -105,7 +105,7 @@ class LumenScaffoldCommand extends Command
                 //controller
                 rename($this->controller_file, $this->app_dir . '/Http/Controllers/' . $this->model . 'Controller.php');
                 break;
-            case 1:
+            case 2:
                 //Model
                 rename($this->controller_file, $this->app_dir . '/Http/Models/' . $this->model . '.php');
                 break;
@@ -153,9 +153,9 @@ class LumenScaffoldCommand extends Command
             file_put_contents($this->app_dir . '/Http/swagger/swaggerTags.php',
                 "\n* @SWG\Tag("
                 . "\n *   name=\"" . strtolower($this->model) . "s\","
-                . "\n *   description=\"" . strtolower($this->model) . "s\"  API description\","
+                . "\n *   description=\"" . strtolower($this->model) . "s  API description\","
                 . "\n *   @SWG\ExternalDocumentation("
-                . "\n *     description=\","
+                . "\n *     description=\"\","
                 . "\n *     url=\"\""
                 . "\n *   )"
                 . "\n * )"
