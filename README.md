@@ -33,6 +33,10 @@ OBS: to create a resource method for create all paths more fast, you have to cha
 Add the command into your kernel.php
 > \rafadpedrosa\lumen_scaffold\LumenScaffoldCommand::class,
 
+then...
+*Create folder ../Http/Models and ../Http/swagger* 
+~PS: I need to add the swagger files... other wise this repo will still be understandable :(~
+
 And now ou are ready to go! 
 
 > php artisan lumen_scaffold:start your_model_here {--m|migration=1}
