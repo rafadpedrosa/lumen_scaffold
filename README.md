@@ -30,6 +30,9 @@ OBS: to create a resource method for create all paths more fast, you have to cha
 >     realpath(__DIR__ . '/../')
 > );
 
+Add the command into your kernel.php
+> \rafadpedrosa\lumen_scaffold\LumenScaffoldCommand::class,
+
 And now ou are ready to go! 
 
 > php artisan lumen_scaffold:start your_model_here {--m|migration=1}
